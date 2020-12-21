@@ -110,6 +110,8 @@ def set_github_env(version):
 
 
 def update():
+    print(TOKEN)
+
     releases = fetch_releases(TOKEN)
 
     print(releases)
