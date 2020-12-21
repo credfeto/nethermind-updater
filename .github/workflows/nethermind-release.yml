@@ -44,4 +44,4 @@ jobs:
 #        token: ${{ secrets.SOURCE_PUSH_TOKEN }}
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
       name: Push package
-      run: octo push --package=nethermind.windows-amd64.${{env.DOWNLOADED_VERSION}}.zip --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_API_KEY}} --enableServiceMessages
+      run: octo push --package=${{env.DOWNLOADED_FILE}} --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_API_KEY}} --enableServiceMessages
