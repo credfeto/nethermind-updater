@@ -1,7 +1,7 @@
-from python_graphql_client import GraphqlClient
 import json
-import pathlib
 import os
+import pathlib
+from python_graphql_client import GraphqlClient
 from urllib.request import Request, urlopen
 
 root = pathlib.Path(__file__).parent.resolve()
@@ -109,6 +109,10 @@ def set_github_env(version):
     close(f)
 
 def update():
+    print(TOKEN)
+    print(GITHUB_ENV)
+    PRINT(CURRENT_VERSION)
+
     releases = fetch_releases(TOKEN)
 
     print(releases)
