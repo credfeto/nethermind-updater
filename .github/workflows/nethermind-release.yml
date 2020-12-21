@@ -47,7 +47,7 @@ jobs:
       run: |
         pwd
         ls -la
-
+        echo ${{env.DOWNLOADED_FILE}}
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
       name: Push package
-      run: octo push --package *.zip "${{env.DOWNLOADED_FILE}}" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
+      run: octo push --package *.zip  --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
