@@ -84,7 +84,7 @@ def download(release):
 
     if filename.exists():
         print("Skipping " + name + " as it already exists")
-        return
+        return filename
 
     request = Request(url)
     request.add_header('Accepts', 'application/octet-stream')
@@ -98,14 +98,17 @@ def download(release):
     print(" - Downloaded " + package_filename)
     filename.open("wb").write(content)
 
+    return filename
 
-def set_github_env(version):
+
+def set_github_env(version, filename):
     if GITHUB_ENV == "":
         print("No GITHUB_ENV defined")
         return
 
     f = open(GITHUB_ENV, "a")
     f.write("DOWNLOADED_VERSION=" + version + "\r\n")
+    f.write("DOWNLOADED_FILE=" + filename + "\r\n")
     f.close()
 
 
@@ -122,9 +125,9 @@ def update():
     for release in releases:
         version = release["name"]
         if CURRENT_VERSION != "" or version > CURRENT_VERSION:
-            download(release)
+            filename = download(release)
 
-            set_github_env(version)
+            set_github_env(version = filename)
             break
 
     print("Completed")
