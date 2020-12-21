@@ -50,4 +50,4 @@ jobs:
 
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
       name: Push package
-      run: octo push --package="${{env.DOWNLOADED_FILE}}" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
+      run: octo push --package *.zip "${{env.DOWNLOADED_FILE}}" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
