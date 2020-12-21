@@ -35,7 +35,7 @@ jobs:
       env:
         CURRENT_VERSION: ${{ secrets.LAST_NETHERMIND_VERSION }}
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
-      uses: hmanzur/actions-set-secret@v2.0.1
+      uses: hmanzur/actions-set-secret@2.0.2
       with:
         name: 'LAST_NETHERMIND_VERSION'
         value: ${{ env.DOWNLOADED_VERSION }}
