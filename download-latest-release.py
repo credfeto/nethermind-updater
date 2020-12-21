@@ -102,6 +102,7 @@ def download(release):
 
 
 def set_github_env(version, filename):
+    print(version + ' = ' + filename)
     if GITHUB_ENV == "":
         print("No GITHUB_ENV defined")
         return
@@ -115,8 +116,6 @@ def set_github_env(version, filename):
 def update():
     print("==================================================================")
     print("Updating ")
-    print(TOKEN[::-1])
-    print("==================================================================")
 
     releases = fetch_releases(TOKEN)
 
@@ -131,7 +130,8 @@ def update():
             break
 
     print("Completed")
-    
+    print("==================================================================")
+
 
 if __name__ == "__main__":
     update()
