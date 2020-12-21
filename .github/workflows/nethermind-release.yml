@@ -50,4 +50,7 @@ jobs:
         echo ${{env.DOWNLOADED_FILE}}
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
       name: Push package
-      run: octo push --package *.zip  --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
+      run: octo push --package *.zip  --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug --overwrite-mode=IgnoreIfExists
+    - if: ${{ env.DOWNLOADED_VERSION != '' }}
+      name: Create release
+      run: octo create-release --project=NethermindRinkeby --version "${{env.DOWNLOADED_VERSION}}" --channel "Work" --package "nethermind.windows-amd64:${{env.DOWNLOADED_VERSION}}" --deployTo="Default --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
