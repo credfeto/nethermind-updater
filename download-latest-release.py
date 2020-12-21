@@ -1,8 +1,8 @@
-import json
 import os
 import pathlib
-from python_graphql_client import GraphqlClient
 from urllib.request import Request, urlopen
+
+from python_graphql_client import GraphqlClient
 
 root = pathlib.Path(__file__).parent.resolve()
 client = GraphqlClient(endpoint="https://api.github.com/graphql")
@@ -11,6 +11,7 @@ client = GraphqlClient(endpoint="https://api.github.com/graphql")
 TOKEN = os.environ.get("SOURCE_PUSH_TOKEN", "")
 GITHUB_ENV = os.environ.get("GITHUB_ENV", "")
 CURRENT_VERSION = os.environ.get("CURRENT_VERSION", "")
+
 
 def make_query():
     return """
@@ -46,9 +47,6 @@ def fetch_releases(oauth_token):
         query=make_query(),
         headers={"Authorization": "Bearer {}".format(oauth_token)},
     )
-    #print()
-    #print(json.dumps(data, indent=4))
-    #print()
 
     for release in data["data"]["repository"]["releases"]["nodes"]:
         if release["isDraft"]:
@@ -75,6 +73,7 @@ def fetch_releases(oauth_token):
 
     return releases
 
+
 def download(release):
     name = release["name"]
     url = release["download"]
@@ -99,20 +98,18 @@ def download(release):
     print(" - Downloaded " + package_filename)
     filename.open("wb").write(content)
 
+
 def set_github_env(version):
     if GITHUB_ENV == "":
         print("No GITHUB_ENV defined")
         return
 
     f = open(GITHUB_ENV, "a")
-    f.write("DOWNLOADED_VERSION=" +version +"\r\n")
-    close(f)
+    f.write("DOWNLOADED_VERSION=" + version + "\r\n")
+    f.close()
+
 
 def update():
-    print(TOKEN)
-    print(GITHUB_ENV)
-    PRINT(CURRENT_VERSION)
-
     releases = fetch_releases(TOKEN)
 
     print(releases)
@@ -127,6 +124,6 @@ def update():
 
     print("Completed")
     
+
 if __name__ == "__main__":
     update()
-

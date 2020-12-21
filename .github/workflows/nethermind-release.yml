@@ -33,6 +33,7 @@ jobs:
     - name: Download Nethermind
       run: python download-latest-release.py
       env:
+        SOURCE_PUSH_TOKEN: ${{ secrets.SOURCE_PUSH_TOKEN }}
         CURRENT_VERSION: ${{ secrets.LAST_NETHERMIND_VERSION }}
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
       uses: hmanzur/actions-set-secret@2.0.2
