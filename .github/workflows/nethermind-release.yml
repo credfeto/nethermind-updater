@@ -28,6 +28,10 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install -r requirements.txt
+    - name: install Octopus Deploy CLI
+      uses: OctopusDeploy/install-octocli@v1
+      with:
+        version: 7.4.2
     - name: Download Nethermind
       run: python download-latest-release.py
       env:
@@ -39,3 +43,6 @@ jobs:
         value: ${{ env.DOWNLOADED_VERSION }}
         repository: credfeto/nethermind-updater
         token: ${{ secrets.SOURCE_PUSH_TOKEN }}
+    - if: ${{ env.DOWNLOADED_VERSION != '' }}
+      name: Push package
+      run: octo push --package=nethermind.windows-amd64.${{env.DOWNLOADED_VERSION}}.zip --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_API_KEY}} --enableServiceMessages
