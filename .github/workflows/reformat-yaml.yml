@@ -1,0 +1,35 @@
+name: Standardise YAML format
+
+on:
+  push:
+    branches-ignore:
+    - "release/*"
+    - "hotfix/*"
+    paths:
+    - '**.yml'
+    - '**.yaml'
+
+jobs:
+  standardise-yaml-files:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2.3.4
+      with:
+        fetch-depth: 0
+        ref: ${{ github.head_ref }}
+        token: ${{ secrets.SOURCE_PUSH_TOKEN }}
+    - run: |
+        echo Current Branch ${GITHUB_REF#refs/heads/}
+        echo GIT_BRANCH=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+        echo User: ${{github.actor}}
+    - uses: credfeto/action-yaml-format@v1.2
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "[FF-2107] Reformat YAML Files to common format"
+        file_pattern: "*.yml"
+        commit_user_name: "fun-ymlfmt[bot]"
+        commit_user_email: "credfeto@users.noreply.github.com"
+        commit_author: "fun-ymlfmt[bot] <credfeto@users.noreply.github.com>"
+        skip_dirty_check: false
