@@ -36,7 +36,7 @@ jobs:
         CURRENT_VERSION: ${{ secrets.LAST_NETHERMIND_VERSION }}
       run: python download-latest-release.py
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
-      uses: hmanzur/actions-set-secret@2.0.2
+      uses: hmanzur/actions-set-secret@master
       with:
         name: 'LAST_NETHERMIND_VERSION'
         value: ${{ env.DOWNLOADED_VERSION }}
