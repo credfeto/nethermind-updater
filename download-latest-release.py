@@ -108,7 +108,7 @@ def set_github_env(version, filename):
 
     f = open(GITHUB_ENV, "a")
     f.write("DOWNLOADED_VERSION=" + version + "\r\n")
-    f.write("DOWNLOADED_FILE=" + filename + "\r\n")
+    f.write("DOWNLOADED_FILE=" + filename.s + "\r\n")
     f.close()
 
 
@@ -127,7 +127,7 @@ def update():
         if CURRENT_VERSION != "" or version > CURRENT_VERSION:
             filename = download(release)
 
-            set_github_env(version, filename)
+            set_github_env(version, str(filename))
             break
 
     print("Completed")
