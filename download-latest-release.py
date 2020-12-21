@@ -109,7 +109,7 @@ def set_github_env(version, filename):
 
     f = open(GITHUB_ENV, "a")
     f.write("DOWNLOADED_VERSION=" + version + "\r\n")
-    f.write("DOWNLOADED_FILE=" + filename.s + "\r\n")
+    f.write("DOWNLOADED_FILE=" + filename + "\r\n")
     f.close()
 
 
