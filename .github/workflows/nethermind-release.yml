@@ -35,13 +35,13 @@ jobs:
         SOURCE_PUSH_TOKEN: ${{ secrets.SOURCE_PUSH_TOKEN }}
         CURRENT_VERSION: ${{ secrets.LAST_NETHERMIND_VERSION }}
       run: python download-latest-release.py
-    - if: ${{ env.DOWNLOADED_VERSION != '' }}
-      uses: hmanzur/actions-set-secret@58a0e8bc8c5ae1bcb451a11d017a1ed97b44117f
-      with:
-        name: 'LAST_NETHERMIND_VERSION'
-        value: ${{ env.DOWNLOADED_VERSION }}
-        repository: credfeto/nethermind-updater
-        token: ${{ secrets.SOURCE_PUSH_TOKEN }}
+#    - if: ${{ env.DOWNLOADED_VERSION != '' }}
+#      uses: hmanzur/actions-set-secret@2.0.2
+#      with:
+#        name: 'LAST_NETHERMIND_VERSION'
+#        value: ${{ env.DOWNLOADED_VERSION }}
+#        repository: credfeto/nethermind-updater
+#        token: ${{ secrets.SOURCE_PUSH_TOKEN }}
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
       name: Push package
       run: octo push --package=nethermind.windows-amd64.${{env.DOWNLOADED_VERSION}}.zip --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_API_KEY}} --enableServiceMessages
