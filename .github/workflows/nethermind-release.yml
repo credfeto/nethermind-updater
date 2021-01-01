@@ -57,3 +57,6 @@ jobs:
     - if: ${{ env.DOWNLOADED_VERSION != '' }}
       name: Deploy Rinkeby
       run: octo create-release --project=NethermindRinkeby --version=${{env.DOWNLOADED_VERSION}} --channel=Work --package=nethermind.windows-amd64:${{env.DOWNLOADED_VERSION}} --deployTo=Work --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
+    - if: ${{ env.DOWNLOADED_VERSION != '' }}
+      name: Deploy MainNet
+      run: octo create-release --project=NethermindMainNet --version=${{env.DOWNLOADED_VERSION}} --channel=Work --package=nethermind.windows-amd64:${{env.DOWNLOADED_VERSION}} --deployTo=Work --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_API_KEY}}" --enableServiceMessages --debug
